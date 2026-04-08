@@ -193,6 +193,7 @@
     };
 
     function startListening() {
+        if (cat.classList.contains('speaking')) return; // Don't listen if speaking
         try {
             recognition.start();
             status.innerText = "Listening...";
@@ -210,19 +211,15 @@
     };
 
     recognition.onend = () => {
-        // Automatically restart if it was stopped by silence and we are in auto mode
-        if (isAutoListening && status.innerText !== "Speaking...") {
-            startListening();
-        }
-    };
-
-    recognition.onerror = (event) => {
-        if (event.error === 'no-speech' && isAutoListening) {
+        // Only restart if we are in auto mode AND not currently speaking
+        if (isAutoListening && !cat.classList.contains('speaking')) {
             startListening();
         }
     };
 
     async function sendToAI(text) {
+        // Stop listening immediately when we send to AI
+        recognition.stop();
         try {
             const res = await fetch('/chat', {
                 method: 'POST',
@@ -242,16 +239,23 @@
         // Show speaking animation
         cat.classList.add('speaking');
         status.innerText = "Speaking...";
+        
+        // CRITICAL: Stop the microphone completely while speaking
+        recognition.stop();
 
         // Fetch high quality female voice from backend
-        // We add a timestamp to prevent caching issues
         const audio = new Audio('/voice?text=' + encodeURIComponent(text) + '&t=' + Date.now());
         audio.play();
 
         audio.onended = () => {
             cat.classList.remove('speaking');
+            
+            // Add a small delay (500ms) before listening again 
+            // to ensure the room is quiet and the last word isn't heard
             if (isAutoListening) {
-                startListening();
+                setTimeout(() => {
+                    startListening();
+                }, 500);
             } else {
                 status.innerText = "Finished. Click the paw to speak again.";
             }
