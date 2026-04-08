@@ -1,0 +1,145 @@
+COLLEGE INFORMATION
+
+College Name:
+K Ramakrishnan College of Technology
+
+Location:
+Trichy, Tamil Nadu, India.
+
+Courses Offered:
+- Artificial Intelligence and Data Science
+- Computer Science Engineering
+- Electronics and Communication Engineering
+- Electrical and Electronics Engineering
+- Mechanical Engineering
+- Civil Engineering
+- Information Technology
+
+Library Timing:
+8:00 AM to 8:00 PM
+
+Hostel:
+Hostel facilities are available for both boys and girls.
+
+Placement Information:
+Highest package offered is around 12 LPA.
+
+Office Working Hours:
+8:45 AM to 5:00 PM
+
+
+--------------------------------------------------
+
+CAMPUS ASSISTANT INFORMATION
+
+Assistant Name:
+Campus Thozhan
+
+Who created this assistant?
+Campus Thozhan was created by AI and triple e students.
+
+Project Team:
+EEE and AI & DS third year students contributed to this project.
+
+Official Website:
+mukilan-info.vercel.app
+
+Purpose of the Assistant:
+Campus Thozhan helps visitors and students by providing information about the college, departments, and facilities.
+
+Is this a robot?
+Yes. I am a campus assistant robot designed to guide students and visitors.
+
+
+--------------------------------------------------
+
+ADMINISTRATIVE LOCATIONS
+
+Principal Office Location:
+The principal office is located in the Admin Block, first floor.
+
+Admin Office Location:
+The administration office is located in the Admin Block first floor, opposite the library.
+
+COE Office Location:
+The Controller of Examination (COE) office is located in the Admin Block first floor on the right side near the principal office.
+
+Conference Hall Location:
+The conference hall is located in the Admin Block first floor near the library on the left side.
+
+
+--------------------------------------------------
+
+CAMPUS FACILITIES
+
+Library Location:
+The library is located in the Admin Block first floor near the administration office.
+
+Canteen Location:
+The canteen is located near the engineering college building on the way to the hostel. From the circuit block go straight, turn right and then go left.
+
+Placement Office Location:
+The placement office is located on the 2nd floor of the Circuit Block on the left side.
+
+Simulation Lab Location:
+The simulation lab is located on the 1st floor opposite the EEE department.
+
+Girls Restroom Location:
+Girls restrooms are located on all floors of the circuit block on the left side.
+
+Boys Restroom Location:
+Boys restrooms are located on all floors of the circuit block on the right side.
+
+
+--------------------------------------------------
+
+DEPARTMENT LOCATIONS
+
+EEE Department:
+The Electrical and Electronics Engineering department is located in the Circuit Block first floor.
+
+ECE Department:
+The Electronics and Communication Engineering department is located in the Circuit Block.
+
+Mechanical Department:
+The Mechanical Engineering department is located in the Mechanical Block.
+
+Civil Department:
+The Civil Engineering department is located on the 3rd floor of the Admin Block on the right side.
+
+IT Department:
+The Information Technology department is located on the 3rd floor of the Admin Block on the left side.
+
+AI & DS Department:
+The Artificial Intelligence and Data Science department is located on the 1st floor of the Circuit Block on the right side.
+
+CSE Department:
+The Computer Science Engineering department is located on the 3rd floor of the Circuit Block on the right side.
+
+Science and Humanities Department:
+The Science and Humanities department is located on the 4th floor of the Admin Block on the right side.
+
+Mathematics Department:
+The Mathematics department is located on the 4th floor of the Admin Block opposite the water dispenser.
+
+
+--------------------------------------------------
+
+ACADEMIC INFORMATION
+
+EEE Department HOD:
+Dr. A.T Sankara Subramaniyan is the Head of the EEE department.
+
+Upcoming Semester Exam:
+The upcoming semester exam is expected in the last week of May.
+
+
+--------------------------------------------------
+
+PLACEMENT ELIGIBILITY
+
+Placement Eligibility Criteria:
+Students must meet the following requirements:
+- No active arrears
+- Minimum 7.5 CGPA
+- At least 60% in SSC or equivalent examinations

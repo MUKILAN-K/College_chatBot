@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Thozhan - Cute AI Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #a8dadc;
+            --accent: #ffb7b2;
+            --bg: #f8f9fa;
+            --text: #1d3557;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            color: var(--text);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .cat-container {
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .cat-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: breathe 3s ease-in-out infinite;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .speaking {
+            animation: bounce 0.5s ease infinite !important;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(1.05); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        .controls {
+            margin-top: 30px;
+        }
+
+        .btn-mic {
+            background: var(--accent);
+            border: none;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 183, 178, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            margin: 0 auto;
+        }
+
+        .btn-mic:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 183, 178, 0.6);
+        }
+
+        .btn-mic:active {
+            transform: scale(0.9);
+        }
+
+        .pulse {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.5;
+            animation: pulse-ring 1.5s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+            z-index: -1;
+            display: none;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .status {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #666;
+            height: 20px;
+        }
+
+        .response-text {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 15px;
+            min-height: 50px;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Campus Thozhan</h1>
+    
+    <div class="cat-container">
+        <div id="ring" class="pulse"></div>
+        <img src="/static/cat.png" id="cat" class="cat-img" alt="Cute Cat Assistant">
+    </div>
+
+    <div class="status" id="status">Tap the paw to talk!</div>
+
+    <div class="response-text" id="response">Hello! I'm your college assistant cat. Mew!</div>
+
+    <div class="controls">
+        <button class="btn-mic" id="mic-btn">
+            <svg viewBox="0 0 24 24">
+                <path d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z" />
+            </svg>
+        </button>
+    </div>
+</div>
+
+<script>
+    const micBtn = document.getElementById('mic-btn');
+    const ring = document.getElementById('ring');
+    const status = document.getElementById('status');
+    const responseDiv = document.getElementById('response');
+    const cat = document.getElementById('cat');
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    const synth = window.speechSynthesis;
+
+    let isAutoListening = false;
+
+    recognition.continuous = false;
+    recognition.lang = 'en-US';
+
+    micBtn.onclick = () => {
+        isAutoListening = !isAutoListening;
+        if (isAutoListening) {
+            startListening();
+        } else {
+            recognition.stop();
+            status.innerText = "Listening stopped.";
+            ring.style.display = "none";
+        }
+    };
+
+    function startListening() {
+        try {
+            recognition.start();
+            status.innerText = "Listening...";
+            ring.style.display = "block";
+        } catch (e) {
+            console.log("Recognition already started or error");
+        }
+    }
+
+    recognition.onresult = (event) => {
+        const text = event.results[0][0].transcript;
+        status.innerText = "Processing...";
+        ring.style.display = "none";
+        sendToAI(text);
+    };
+
+    recognition.onend = () => {
+        // Automatically restart if it was stopped by silence and we are in auto mode
+        if (isAutoListening && status.innerText !== "Speaking...") {
+            startListening();
+        }
+    };
+
+    recognition.onerror = (event) => {
+        if (event.error === 'no-speech' && isAutoListening) {
+            startListening();
+        }
+    };
+
+    async function sendToAI(text) {
+        try {
+            const res = await fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
+            });
+            const data = await res.json();
+            handleResponse(data.answer);
+        } catch (err) {
+            status.innerText = "Error connecting to AI";
+        }
+    }
+
+    function handleResponse(text) {
+        responseDiv.innerText = text;
+        
+        // Show speaking animation
+        cat.classList.add('speaking');
+        status.innerText = "Speaking...";
+
+        // Fetch high quality female voice from backend
+        // We add a timestamp to prevent caching issues
+        const audio = new Audio('/voice?text=' + encodeURIComponent(text) + '&t=' + Date.now());
+        audio.play();
+
+        audio.onended = () => {
+            cat.classList.remove('speaking');
+            if (isAutoListening) {
+                startListening();
+            } else {
+                status.innerText = "Finished. Click the paw to speak again.";
+            }
+        };
+
+        audio.onerror = () => {
+            cat.classList.remove('speaking');
+            status.innerText = "Error playing voice.";
+        };
+    }
+</script>
+
+</body>
+</html>

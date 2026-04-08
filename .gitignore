@@ -1,0 +1,21 @@
+# Virtual Environment
+venv/
+env/
+.env
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Audio Outputs
+static/*.mp3
+static/temp_voice.mp3
+voice.wav
+voice.mp3
+test.mp3
+response.mp3
+
+# OS Files
+.DS_Store
+Thumbs.db
