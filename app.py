@@ -1,5 +1,4 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.responses import HTMLResponse, FileResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from groq import Groq
@@ -8,6 +7,11 @@ import asyncio
 import os
 
 app = FastAPI()
+
+# DEBUG: Show errors in browser
+@app.exception_handler(Exception)
+async def debug_exception_handler(request: Request, exc: Exception):
+    return PlainTextResponse(f"DEBUG ERROR: {str(exc)}", status_code=500)
 
 # Get the base directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
