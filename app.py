@@ -1,3 +1,4 @@
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, FileResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
