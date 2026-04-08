@@ -5,9 +5,5 @@ edge-tts
 jinja2
 gunicorn
 python-multipart
-# AI libs
-speechrecognition
-pygame
-# (sounddevice/soundfile were in original. Keeping just in case)
-sounddevice
-soundfile
+# Local libraries like pygame and speechrecognition are removed 
+# because they are not needed for the web version and cause build errors on Linux servers.
