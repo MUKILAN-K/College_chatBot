@@ -9,18 +9,22 @@ import os
 
 app = FastAPI()
 
-# Mount static files (for the cat image)
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# Get the base directory
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Setup templates
-templates = Jinja2Templates(directory="templates")
+# Mount static files (using absolute path)
+app.mount("/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static")
+
+# Setup templates (using absolute path)
+templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
 # 🔑 Groq Client
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # Load college data
 def load_data():
-    with open("college_data.txt", "r", encoding="utf-8") as f:
+    file_path = os.path.join(BASE_DIR, "college_data.txt")
+    with open(file_path, "r", encoding="utf-8") as f:
         return f.read()
 
 college_data = load_data()
