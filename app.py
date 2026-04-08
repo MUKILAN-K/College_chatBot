@@ -36,7 +36,10 @@ college_data = load_data()
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(
+        name="index.html", 
+        context={"request": request}
+    )
 
 @app.post("/chat")
 async def chat(request: Request):
